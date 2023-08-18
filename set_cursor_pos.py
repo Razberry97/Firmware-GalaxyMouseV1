@@ -5,6 +5,8 @@ import json
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
 
+from singlePressButton import singlePressButton
+
 ser = serial.Serial("COM7", 9600)
 
 #todo get window by id e capire do've il centro
@@ -57,10 +59,15 @@ def releaseKeys():
 button6Modular = 0
 button7Modular = 0
 
+buttonList = [
+    singlePressButton('a', 'joyButt', keyboard),
+    singlePressButton(Key.esc, 'button1', keyboard),
+    singlePressButton(['a', 'b'], 'button2', keyboard),
+]
+
 while True:
     line = ser.readline().decode('utf-8')
     dic = json.loads(line)
-    print( "%d, %d" % (dic['YValue'], dic['XValue']))
 
     xVal = dic['XValue']
     yVal = dic['YValue']
@@ -102,4 +109,5 @@ while True:
         if button7Modular % 6 == 0:
             mouse.scroll(-1,0)
     
-    button4 = dic['button4']
+    for buttonHandler in buttonList:
+        buttonHandler.handle(dic)
