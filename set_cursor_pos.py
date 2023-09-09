@@ -60,9 +60,9 @@ button6Modular = 0
 button7Modular = 0
 
 buttonList = [
-    singlePressButton('a', 'joyButt', keyboard),
-    singlePressButton(Key.esc, 'button1', keyboard),
-    singlePressButton(['a', 'b'], 'button2', keyboard),
+    singlePressButton('a', 'joyButt'),
+    singlePressButton(Key.esc, 'button1'),
+    singlePressButton(['a', 'b'], 'button2'),
 ]
 
 while True:
@@ -110,4 +110,4 @@ while True:
             mouse.scroll(-1,0)
     
     for buttonHandler in buttonList:
-        buttonHandler.handle(dic)
+        buttonHandler.handle(dic, keyboard)

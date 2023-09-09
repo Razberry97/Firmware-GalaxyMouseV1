@@ -1,11 +1,10 @@
 class singlePressButton:
-    def __init__(self, buttonToPress, buttonName, keyboard):
+    def __init__(self, buttonToPress, buttonName):
         self.isPressed = False
         self.buttonToPress = buttonToPress
         self.buttonName = buttonName
-        self.keyboard = keyboard
 
-    def handle(self, dic):
+    def handle(self, dic, keyboard):
         if dic[self.buttonName] == 0:
             self.isPressed = False
             return
