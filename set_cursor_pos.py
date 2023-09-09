@@ -2,17 +2,15 @@ import win32api
 import datetime
 import serial
 import json
+import time
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
 
 from singlePressButton import singlePressButton
 
-settings = json.load(open("./settings.json"))
+settings = json.load(open("C:\\Users\\scorp\\Desktop\\things\\3d mouse firmware\\settings.json"))
 
-ser = serial.Serial(settings["ARDUINO_PORT"], 9600)
 
-#todo get window by id e capire do've il centro
-discard = ser.readline()
 keyboard = Controller()
 mouse = MouseController()
 
@@ -67,49 +65,62 @@ buttonList = [
     singlePressButton(['a', 'b'], 'button2'),
 ]
 
+toInit = True
+
 while True:
-    line = ser.readline().decode('utf-8')
-    dic = json.loads(line)
+    try:
+        if toInit:
+            ser = serial.Serial(settings["ARDUINO_PORT"], 9600)
+            toInit = False
 
-    xVal = dic['XValue']
-    yVal = dic['YValue']
+        line = ser.readline().decode('utf-8')
+        dic = json.loads(line)
 
-    xVal = coordinatePipeline(xVal)
-    yVal = coordinatePipeline(yVal)
+        xVal = dic['XValue']
+        yVal = dic['YValue']
 
-    if yVal != 0 or xVal != 0:
+        xVal = coordinatePipeline(xVal)
+        yVal = coordinatePipeline(yVal)
 
-        if isPressing == False:
-            pressKeys()
+        if yVal != 0 or xVal != 0:
 
-        xmPos,ymPos = win32api.GetCursorPos()
+            if isPressing == False:
+                pressKeys()
 
-        if (xmPos < 1000 - squareLato or xmPos > 1000 + squareLato or 
-            ymPos < 500 - squareLato or ymPos > 500 + squareLato):
-            xmPos = 1000
-            ymPos = 500
+            xmPos,ymPos = win32api.GetCursorPos()
+
+            if (xmPos < 1000 - squareLato or xmPos > 1000 + squareLato or 
+                ymPos < 500 - squareLato or ymPos > 500 + squareLato):
+                xmPos = 1000
+                ymPos = 500
+                releaseKeys()
+                win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
+                pressKeys()
+            else:
+                win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
+
+        elif isPressing:
             releaseKeys()
-            win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
-            pressKeys()
-        else:
-            win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
 
-    elif isPressing:
-        releaseKeys()
+        button6 = dic['button6']
 
-    button6 = dic['button6']
+        if button6 == 1:
+            button6Modular = button6Modular + 1
+            if button6Modular % 6 == 0:
+                mouse.scroll(1,0)
+        
+        button7 = dic['button7']
 
-    if button6 == 1:
-        button6Modular = button6Modular + 1
-        if button6Modular % 6 == 0:
-            mouse.scroll(1,0)
-    
-    button7 = dic['button7']
-
-    if button7 == 1:
-        button7Modular = button7Modular + 1
-        if button7Modular % 6 == 0:
-            mouse.scroll(-1,0)
-    
-    for buttonHandler in buttonList:
-        buttonHandler.handle(dic, keyboard)
+        if button7 == 1:
+            button7Modular = button7Modular + 1
+            if button7Modular % 6 == 0:
+                mouse.scroll(-1,0)
+        
+        for buttonHandler in buttonList:
+            buttonHandler.handle(dic, keyboard)
+    except KeyboardInterrupt:
+        exit()
+    except Exception as e:
+        print(str(e))
+        time.sleep(1)
+        toInit = True
