@@ -7,7 +7,9 @@ from pynput.mouse import Button, Controller as MouseController
 
 from singlePressButton import singlePressButton
 
-ser = serial.Serial("COM7", 9600)
+settings = json.load(open("./settings.json"))
+
+ser = serial.Serial(settings["ARDUINO_PORT"], 9600)
 
 #todo get window by id e capire do've il centro
 discard = ser.readline()
