@@ -14,8 +14,8 @@
 #define button3           4          // Rear Button    
 #define button4           7          // Rear Button    
 #define button5           8          // Rear Button    
-#define button6           14          // Rear Button    
-#define button7           16          // Rear Button    
+#define button6           14          // Scroll out
+#define button7           16          // Scroll in
 
 int YZero = 0, XZero = 0;     
 

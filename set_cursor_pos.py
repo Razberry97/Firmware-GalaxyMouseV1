@@ -39,7 +39,7 @@ def pressKeys():
     currentTime = datetime.datetime.now()
     if lastPress != None:
         delta = lastPress - currentTime
-        if delta.microseconds < 500:
+        if delta.microseconds < 600:
             return
     keyboard.press(Key.shift)
     mouse.press(Button.middle)
