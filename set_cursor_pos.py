@@ -39,7 +39,7 @@ def pressKeys():
     currentTime = datetime.datetime.now()
     if lastPress != None:
         delta = lastPress - currentTime
-        if delta.microseconds < 600:
+        if delta.microseconds < 1000:
             return
     keyboard.press(Key.shift)
     mouse.press(Button.middle)
@@ -60,9 +60,12 @@ button6Modular = 0
 button7Modular = 0
 
 buttonList = [
-    singlePressButton('a', 'joyButt'),
-    singlePressButton(Key.esc, 'button1'),
+    singlePressButton('MOUSE_MIDDLE', 'joyButt'),   #examples (['a', 'b'], 'button2') (Key.esc, 'button1'), ('MOUSE_MIDDLE', 'joyButt')
+    singlePressButton(Key.esc,    'button1'),
     singlePressButton(['a', 'b'], 'button2'),
+    singlePressButton(['a'],      'button3'),
+    singlePressButton(['a'],      'button4'),
+    singlePressButton(['s'],      'button5'),
 ]
 
 toInit = True
