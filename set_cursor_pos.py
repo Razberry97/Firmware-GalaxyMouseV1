@@ -60,11 +60,11 @@ button6Modular = 0
 button7Modular = 0
 
 buttonList = [
-    singlePressButton('MOUSE_MIDDLE', 'joyButt'),   #examples (['a', 'b'], 'button2') (Key.esc, 'button1'), ('MOUSE_MIDDLE', 'joyButt')
+    singlePressButton(Key.shift,  'joyButt'),   #examples (['a', 'b'], joybutt dovrebbe essere per settare il centro
     singlePressButton(Key.esc,    'button1'),
-    singlePressButton(['a', 'b'], 'button2'),
-    singlePressButton(['a'],      'button3'),
-    singlePressButton(['a'],      'button4'),
+    singlePressButton(['l'],      'button2'),
+    singlePressButton(['c'],      'button3'),
+    singlePressButton(['e'],      'button4'),
     singlePressButton(['s'],      'button5'),
 ]
 

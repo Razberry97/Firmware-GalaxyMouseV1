@@ -11,7 +11,7 @@ class singlePressButton:
         if not self.isPressed:
             if type(self.buttonToPress) == list:
                 for but in self.buttonToPress:
-                    self.keyboard.press(but)
+                    keyboard.press(but)
             else:
-                self.keyboard.press(self.buttonToPress)
+                keyboard.press(self.buttonToPress)
             self.isPressed = True
