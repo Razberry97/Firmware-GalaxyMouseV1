@@ -39,7 +39,7 @@ def pressKeys():
     currentTime = datetime.datetime.now()
     if lastPress != None:
         delta = lastPress - currentTime
-        if delta.microseconds < 1000:
+        if delta.microseconds < 1500:
             return
     keyboard.press(Key.shift)
     mouse.press(Button.middle)
@@ -63,8 +63,8 @@ buttonList = [
     singlePressButton(Key.shift,  'joyButt'),   #examples (['a', 'b'], joybutt dovrebbe essere per settare il centro
     singlePressButton(Key.esc,    'button1'),
     singlePressButton(['l'],      'button2'),
-    singlePressButton(['c'],      'button3'),
-    singlePressButton(['e'],      'button4'),
+    singlePressButton(['e'],      'button3'),
+    singlePressButton(['x'],      'button4'),
     singlePressButton(['s'],      'button5'),
 ]
 

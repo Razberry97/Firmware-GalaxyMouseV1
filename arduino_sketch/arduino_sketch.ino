@@ -12,8 +12,8 @@
 #define button3           19         // middle Button    
 #define button4           15         // index Button    
 #define button5           18         // thumb Button    
-#define button6           5          // Scroll out
-#define button7           6          // Scroll in
+#define button6           6          // Scroll out
+#define button7           5          // Scroll in
 
 int YZero = 0, XZero = 0;     
 
@@ -46,7 +46,7 @@ unsigned long lastMillis = 0;
 
 void loop(){
   int YValue = (analogRead(VERT_PIN) - YZero) * -1;  
-  int XValue = (analogRead(HORZ_PIN) - XZero) * 1;
+  int XValue = (analogRead(HORZ_PIN) - XZero) * -1;
 
   bool joyButtVal = !digitalRead(joyButt);
   bool button1Val = !digitalRead(button1);
@@ -54,8 +54,8 @@ void loop(){
   bool button3Val = !digitalRead(button3); 
   bool button4Val = !digitalRead(button4); 
   bool button5Val = !digitalRead(button5); 
-  bool button6Val =  digitalRead(button6); 
-  bool button7Val =  digitalRead(button7); 
+  bool button6Val = digitalRead(button6); 
+  bool button7Val = digitalRead(button7); 
 
   Serial.print("{");
 
