@@ -15,4 +15,5 @@ class singlePressButton:
                     keyboard.release(but)
             else:
                 keyboard.press(self.buttonToPress)
+                keyboard.release(self.buttonToPress)
             self.isPressed = True
