@@ -5,6 +5,7 @@ import json
 import time
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
+from singlePressGrid import singlePressGrid
 
 from singlePressButton import singlePressButton
 
@@ -39,7 +40,7 @@ def pressKeys():
     currentTime = datetime.datetime.now()
     if lastPress != None:
         delta = lastPress - currentTime
-        if delta.microseconds < 1500:
+        if delta.microseconds < 550000:
             return
     keyboard.press(Key.shift)
     mouse.press(Button.middle)
@@ -66,6 +67,7 @@ buttonList = [
     singlePressButton(['e'],      'button3'),
     singlePressButton(['x'],      'button4'),
     singlePressButton(['s'],      'button5'),
+                                                #singlePressGrid(['s'],      'gridX1' , 'gridY3'),
 ]
 
 toInit = True
