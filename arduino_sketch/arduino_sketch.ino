@@ -3,7 +3,7 @@
 
 #define HORZ_PIN           20         // VRX Joystick
 #define VERT_PIN           21         // VRY Joystick
-#define DEADZONE           30
+#define DEADZONE           10
 #define DESIRED_MILLIS     400
 #define SENSITIVITY        0.005     
 #define joyButt           2          // SW Joystick

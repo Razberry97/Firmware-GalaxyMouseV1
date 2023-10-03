@@ -5,8 +5,7 @@ import json
 import time
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
-from singlePressGrid import singlePressGrid
-
+from continuousPressButton import continuousPressButton
 from singlePressButton import singlePressButton
 
 settings = json.load(open("C:\\Users\\scorp\\Desktop\\things\\3d mouse firmware\\settings.json"))
@@ -61,9 +60,9 @@ button6Modular = 0
 button7Modular = 0
 
 buttonList = [
-    singlePressButton(Key.shift,  'joyButt'),   #examples (['a', 'b'], joybutt dovrebbe essere per settare il centro
+    continuousPressButton(Key.shift,  'joyButt'),   #examples (['a', 'b'], joybutt dovrebbe essere per settare il centro
     singlePressButton(Key.esc,    'button1'),
-    singlePressButton(['l'],      'button2'),
+    continuousPressButton(Key.ctrl,      'button2'),
     singlePressButton(['e'],      'button3'),
     singlePressButton(['x'],      'button4'),
     singlePressButton(['s'],      'button5'),
