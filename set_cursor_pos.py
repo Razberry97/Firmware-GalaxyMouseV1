@@ -43,6 +43,7 @@ while True:
         for genericHandler in handlersList:
             genericHandler.handle(dic)
     except KeyboardInterrupt:
+        ser.close()
         exit()
     except Exception as e:
         print(str(e))
