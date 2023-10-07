@@ -1,4 +1,4 @@
-from basePressButton import basePressButton
+from handlers.basePressButton import basePressButton
 
 class singlePressGrid(basePressButton):
     def __init__(self, buttonToPress, buttonX, buttonY):
