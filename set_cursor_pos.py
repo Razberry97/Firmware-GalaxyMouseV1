@@ -5,8 +5,8 @@ import json
 import time
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
-from continuousPressButton import continuousPressButton
-from singlePressButton import singlePressButton
+from handlers.continuousPressButton import continuousPressButton
+from handlers.singlePressButton import singlePressButton
 
 settings = json.load(open("C:\\Users\\scorp\\Desktop\\things\\3d mouse firmware\\settings.json"))
 
