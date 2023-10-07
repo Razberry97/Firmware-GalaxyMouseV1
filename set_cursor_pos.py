@@ -14,7 +14,7 @@ keyboard = Controller()
 mouse = MouseController()
 
 
-buttonList = [
+handlersList = [
     ZoomHandler(),
     JoyStickHandler(),
     singlePressButton([Key.ctrl, 'z'],  'joyButt'),   
@@ -25,9 +25,9 @@ buttonList = [
     singlePressButton(['s'],            'button5'),
 ]
 
-for buttonHandler in buttonList:
-    buttonHandler.setMouse(mouse)
-    buttonHandler.setKeyboard(keyboard)
+for genericHandler in handlersList:
+    genericHandler.setMouse(mouse)
+    genericHandler.setKeyboard(keyboard)
 
 toInit = True
 
@@ -40,8 +40,8 @@ while True:
         line = ser.readline().decode('utf-8')
         dic = json.loads(line)
         
-        for buttonHandler in buttonList:
-            buttonHandler.handle(dic)
+        for genericHandler in handlersList:
+            genericHandler.handle(dic)
     except KeyboardInterrupt:
         exit()
     except Exception as e:
