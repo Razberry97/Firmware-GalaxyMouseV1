@@ -1,7 +1,9 @@
-class singlePressGrid:
+from basePressButton import basePressButton
+
+class singlePressGrid(basePressButton):
     def __init__(self, buttonToPress, buttonX, buttonY):
+        super().__init__(buttonToPress)
         self.isPressed = False
-        self.buttonToPress = buttonToPress
         self.buttonX = buttonX
         self.buttonY = buttonY
 
@@ -10,11 +12,6 @@ class singlePressGrid:
             self.isPressed = False
             return
         if not self.isPressed:
-            if type(self.buttonToPress) == list:
-                for but in self.buttonToPress:
-                    keyboard.press(but)
-                    keyboard.release(but)
-            else:
-                keyboard.press(self.buttonToPress)
-                keyboard.release(self.buttonToPress)
+            self.pressAll(keyboard)
+            self.releaseAll(keyboard)
             self.isPressed = True

@@ -60,13 +60,13 @@ button6Modular = 0
 button7Modular = 0
 
 buttonList = [
-    continuousPressButton(Key.shift,  'joyButt'),   #examples (['a', 'b'], joybutt dovrebbe essere per settare il centro
-    singlePressButton(Key.esc,    'button1'),
-    continuousPressButton(Key.ctrl,      'button2'),
-    singlePressButton(['e'],      'button3'),
-    singlePressButton(['x'],      'button4'),
-    singlePressButton(['s'],      'button5'),
-                                                #singlePressGrid(['s'],      'gridX1' , 'gridY3'),
+    singlePressButton([Key.ctrl, 'z'],  'joyButt'),   
+    singlePressButton(Key.esc,          'button1'),
+    continuousPressButton(Key.shift,    'button2'),
+    singlePressButton(Key.ctrl,         'button3'),
+    singlePressButton(['x'],            'button4'),
+    singlePressButton(['s'],            'button5'),
+
 ]
 
 toInit = True
@@ -128,3 +128,4 @@ while True:
         print(str(e))
         time.sleep(1)
         toInit = True
+

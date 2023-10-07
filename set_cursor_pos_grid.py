@@ -68,31 +68,31 @@ buttonList = [
     singlePressGrid      (['x'],         'gridX6' , 'gridY4'),           #index
     singlePressGrid      (['s'],         'gridX6' , 'gridY5'),           #thumb
 
-    singlePressGrid      (['copy'],                  'gridX1' , 'gridY1'),    # 
-    singlePressGrid      (['paste'],                  'gridX2' , 'gridY1'),    # 
-    singlePressGrid      (['-'],         'gridX3' , 'gridY1'),
-    singlePressGrid      (['+'],         'gridX4' , 'gridY1'),    
-    singlePressGrid      (Key.backspace, 'gridX5' , 'gridY1'),    
-    singlePressGrid      (['selectline'],               'gridX1' , 'gridY2'),   # 
-    singlePressGrid      (['1'],         'gridX2' , 'gridY2'),
-    singlePressGrid      (['2'],         'gridX3' , 'gridY2'),
-    singlePressGrid      (['3'],         'gridX4' , 'gridY2'),
-    singlePressGrid      (['gotoendline'],               'gridX5' , 'gridY2'),   # 
-    singlePressGrid      (['/'],         'gridX1' , 'gridY3'),
-    singlePressGrid      (['4'],         'gridX2' , 'gridY3'),
-    singlePressGrid      (['5'],         'gridX3' , 'gridY3'),
-    singlePressGrid      (['6'],         'gridX4' , 'gridY3'),
-    singlePressGrid      (['gotostartline'],              'gridX5' , 'gridY3'),  #  
-    singlePressGrid      (['*'],         'gridX1' , 'gridY4'),
-    singlePressGrid      (['7'],         'gridX2' , 'gridY4'),
-    singlePressGrid      (['8'],         'gridX3' , 'gridY4'),
-    singlePressGrid      (['9'],         'gridX4' , 'gridY4'),
-    singlePressGrid      (Key.enter,     'gridX5' , 'gridY4'),        
-    singlePressGrid      (['.'],         'gridX1' , 'gridY5'),
-    singlePressGrid      (['0'],         'gridX2' , 'gridY5'),
-    singlePressGrid      ([''],          'gridX3' , 'gridY5'),
-    singlePressGrid      (Key.left,      'gridX4' , 'gridY5'),           
-    singlePressGrid      (Key.right,     'gridX5' , 'gridY5'),             
+    singlePressGrid      ([Key.ctrl, 'c'],  'gridX1' , 'gridY1'),     
+    singlePressGrid      ([Key.ctrl, 'v'],  'gridX2' , 'gridY1'),     
+    singlePressGrid      (['-'],            'gridX3' , 'gridY1'),
+    singlePressGrid      (['+'],            'gridX4' , 'gridY1'),    
+    singlePressGrid      (Key.backspace,    'gridX5' , 'gridY1'),    
+    singlePressGrid      ([Key.ctrl, Key.left, Key.shift, Key.right], 'gridX1' , 'gridY2'),   #select entire word 
+    singlePressGrid      (['1'],            'gridX2' , 'gridY2'),
+    singlePressGrid      (['2'],            'gridX3' , 'gridY2'),
+    singlePressGrid      (['3'],            'gridX4' , 'gridY2'),
+    singlePressGrid      ([Key.ctrl, Key.right],  'gridX5' , 'gridY2'),   #go to end of the line 
+    singlePressGrid      (['/'],            'gridX1' , 'gridY3'),
+    singlePressGrid      (['4'],            'gridX2' , 'gridY3'),
+    singlePressGrid      (['5'],            'gridX3' , 'gridY3'),
+    singlePressGrid      (['6'],            'gridX4' , 'gridY3'),
+    singlePressGrid      ([Key.ctrl, Key.left],   'gridX5' , 'gridY3'),   #go to start of the line  
+    singlePressGrid      (['*'],            'gridX1' , 'gridY4'),
+    singlePressGrid      (['7'],            'gridX2' , 'gridY4'),
+    singlePressGrid      (['8'],            'gridX3' , 'gridY4'),
+    singlePressGrid      (['9'],            'gridX4' , 'gridY4'),
+    singlePressGrid      (Key.enter,        'gridX5' , 'gridY4'),        
+    singlePressGrid      (['.'],            'gridX1' , 'gridY5'),
+    singlePressGrid      (['0'],            'gridX2' , 'gridY5'),
+    singlePressGrid      ([''],             'gridX3' , 'gridY5'),
+    singlePressGrid      (Key.left,         'gridX4' , 'gridY5'),           
+    singlePressGrid      (Key.right,        'gridX5' , 'gridY5'),             
 
 ]
 

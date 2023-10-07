@@ -1,7 +1,9 @@
-class singlePressButton:
+from basePressButton import basePressButton
+
+class singlePressButton(basePressButton):
     def __init__(self, buttonToPress, buttonName):
+        super().__init__(buttonToPress)
         self.isPressed = False
-        self.buttonToPress = buttonToPress
         self.buttonName = buttonName
 
     def handle(self, dic, keyboard):
@@ -9,11 +11,6 @@ class singlePressButton:
             self.isPressed = False
             return
         if not self.isPressed:
-            if type(self.buttonToPress) == list:
-                for but in self.buttonToPress:
-                    keyboard.press(but)
-                    keyboard.release(but)
-            else:
-                keyboard.press(self.buttonToPress)
-                keyboard.release(self.buttonToPress)
+            self.pressAll(keyboard)
+            self.releaseAll(keyboard)
             self.isPressed = True
