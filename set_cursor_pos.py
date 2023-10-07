@@ -15,8 +15,8 @@ mouse = MouseController()
 
 
 buttonList = [
-    ZoomHandler(mouse,keyboard),
-    JoyStickHandler(mouse,keyboard),
+    ZoomHandler(),
+    JoyStickHandler(),
     singlePressButton([Key.ctrl, 'z'],  'joyButt'),   
     singlePressButton(Key.esc,          'button1'),
     continuousPressButton(Key.shift,    'button2'),
@@ -24,6 +24,10 @@ buttonList = [
     singlePressButton(['x'],            'button4'),
     singlePressButton(['s'],            'button5'),
 ]
+
+for buttonHandler in buttonList:
+    buttonHandler.setMouse(mouse)
+    buttonHandler.setKeyboard(keyboard)
 
 toInit = True
 
@@ -37,7 +41,7 @@ while True:
         dic = json.loads(line)
         
         for buttonHandler in buttonList:
-            buttonHandler.handle(dic, keyboard)
+            buttonHandler.handle(dic)
     except KeyboardInterrupt:
         exit()
     except Exception as e:

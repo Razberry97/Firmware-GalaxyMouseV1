@@ -1,11 +1,13 @@
-class ZoomHandler:
-    def __init__(self, mouse, keyboard):
-        self.mouse = mouse
-        self.keyboard = keyboard
+from handlers.baseHandler import baseHandler
+
+
+class ZoomHandler(baseHandler):
+    def __init__(self):
+        super().__init__()
         self.button6Modular = 0
         self.button7Modular = 0
 
-    def handle(self, dic, _keyboard):
+    def handle(self, dic):
         
         button6 = dic['button6']
 

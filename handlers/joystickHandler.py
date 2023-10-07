@@ -3,10 +3,11 @@ import datetime
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
 
-class JoyStickHandler:
-    def __init__(self, mouse, keyboard):
-        self.mouse = mouse
-        self.keyboard = keyboard
+from handlers.baseHandler import baseHandler
+
+class JoyStickHandler(baseHandler):
+    def __init__(self):
+        super().__init__()
         self.isPressing = False
         self.lastPress = None
         self.squareLato = 100
@@ -40,7 +41,7 @@ class JoyStickHandler:
         self.isPressing = False
 
 
-    def handle(self, dic, _keyboard):
+    def handle(self, dic):
         xVal = dic['XValue']
         yVal = dic['YValue']
 

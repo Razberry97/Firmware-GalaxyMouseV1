@@ -1,5 +1,8 @@
-class basePressButton:
+from handlers.baseHandler import baseHandler
+
+class basePressButton(baseHandler):
     def __init__(self, buttonToPress):
+        super().__init__()
         self.buttonToPress = buttonToPress
 
     def pressAll(self, keyboard):

@@ -6,13 +6,13 @@ class continuousPressButton(basePressButton):
         self.isPressed = False
         self.buttonName = buttonName
 
-    def handle(self, dic, keyboard):
+    def handle(self, dic):
         if dic[self.buttonName] == 0:
             if self.isPressed:
-                self.releaseAll(keyboard)
+                self.releaseAll(self.keyboard)
                 self.isPressed = False
         else: 
             if not self.isPressed:
-                self.pressAll(keyboard)
+                self.pressAll(self.keyboard)
                 self.isPressed = True
     

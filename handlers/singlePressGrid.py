@@ -7,11 +7,11 @@ class singlePressGrid(basePressButton):
         self.buttonX = buttonX
         self.buttonY = buttonY
 
-    def handle(self, dic, keyboard):
+    def handle(self, dic):
         if dic[self.buttonX] == 0 or dic[self.buttonY] == 0:
             self.isPressed = False
             return
         if not self.isPressed:
-            self.pressAll(keyboard)
-            self.releaseAll(keyboard)
+            self.pressAll(self.keyboard)
+            self.releaseAll(self.keyboard)
             self.isPressed = True

@@ -6,11 +6,11 @@ class singlePressButton(basePressButton):
         self.isPressed = False
         self.buttonName = buttonName
 
-    def handle(self, dic, keyboard):
+    def handle(self, dic):
         if dic[self.buttonName] == 0:
             self.isPressed = False
             return
         if not self.isPressed:
-            self.pressAll(keyboard)
-            self.releaseAll(keyboard)
+            self.pressAll(self.keyboard)
+            self.releaseAll(self.keyboard)
             self.isPressed = True
