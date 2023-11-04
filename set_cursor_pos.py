@@ -3,12 +3,12 @@ import json
 import time
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
-from handlers.gridHandler import gridHandler
-from handlers.singlePressButton import singlePressButton
 from handlers.joystickHandler import JoyStickHandler
 from handlers.zoomHandler import ZoomHandler
 
-settings = json.load(open("C:\\Users\\scorp\\Desktop\\things\\3d mouse firmware\\settings.json"))
+settings ={
+        "ARDUINO_PORT": "COM5"
+        } 
 
 keyboard = Controller()
 mouse = MouseController()
