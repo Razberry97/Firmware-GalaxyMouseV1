@@ -3,7 +3,7 @@ import json
 import time
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
-from handlers.continuousPressButton import continuousPressButton
+from handlers.gridHandler import gridHandler
 from handlers.singlePressButton import singlePressButton
 from handlers.joystickHandler import JoyStickHandler
 from handlers.zoomHandler import ZoomHandler
@@ -16,13 +16,7 @@ mouse = MouseController()
 
 handlersList = [
     ZoomHandler(),
-    JoyStickHandler(),
-    singlePressButton([Key.ctrl, 'z'],  'joyButt'),   
-    singlePressButton(Key.esc,          'button1'),
-    continuousPressButton(Key.shift,    'button2'),
-    singlePressButton(Key.ctrl,         'button3'),
-    singlePressButton(['x'],            'button4'),
-    singlePressButton(['s'],            'button5'),
+    JoyStickHandler()
 ]
 
 for genericHandler in handlersList:
@@ -35,6 +29,7 @@ while True:
     try:
         if toInit:
             ser = serial.Serial(settings["ARDUINO_PORT"], 9600)
+            ser.readline()
             toInit = False
 
         line = ser.readline().decode('utf-8')
@@ -46,7 +41,11 @@ while True:
         ser.close()
         exit()
     except Exception as e:
+        try:
+            ser.close()
+        except:
+            pass
         print(str(e))
-        time.sleep(1)
+        time.sleep(2)
         toInit = True
 

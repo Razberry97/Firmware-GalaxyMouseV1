@@ -2,15 +2,20 @@ import win32api
 import datetime
 from pynput.keyboard import Key, Controller
 from pynput.mouse import Button, Controller as MouseController
-
 from handlers.baseHandler import baseHandler
+from enum import Enum
+
+class JOYSTICK_STATE(Enum):
+    NON_PREMUTO = 0
+    PRESSING = 1
+    RELEASING = 2
 
 class JoyStickHandler(baseHandler):
     def __init__(self):
         super().__init__()
-        self.isPressing = False
+        self.joyState = JOYSTICK_STATE.NON_PREMUTO
         self.timeToRelease = None
-        self.squareLato = 100
+        self.radius = 100
 
     def deadzoning(self, val):
         if abs(val) < 10:
@@ -23,31 +28,28 @@ class JoyStickHandler(baseHandler):
         return val
 
     def pressKeys(self):
-        if self.timeToRelease == None:
-            self.keyboard.press(Key.shift)
-            self.mouse.press(Button.middle)
-            self.keyboard.press(Key.ctrl_l)
-        else:
-            self.timeToRelease = None
-        self.isPressing = True
+        self.keyboard.press(Key.shift)
+        self.mouse.press(Button.middle)
+        self.keyboard.press(Key.ctrl_l)
 
     def releaseKeys(self):
-        self.timeToRelease = datetime.datetime.now() + datetime.timedelta(seconds=2)
-        self.isPressing = False
+        self.keyboard.release(Key.shift)
+        self.mouse.release(Button.middle)
+        self.keyboard.release(Key.ctrl_l)
 
+    
+        
     def handleMouseMovement(self, xVal, yVal, doPacman):
         squareX = 1000
         squareY = 500
         xmPos,ymPos = win32api.GetCursorPos()
         win32api.ShowCursor(False)
 
-        if (not doPacman and (xmPos < squareX - self.squareLato or xmPos > squareX + self.squareLato or 
-            ymPos < squareY - self.squareLato or ymPos > squareY + self.squareLato)):
+        if (xmPos < squareX - self.squareLato or xmPos > squareX + self.squareLato or 
+            ymPos < squareY - self.squareLato or ymPos > squareY + self.squareLato):
             xmPos = squareX
             ymPos = squareY
-            self.releaseKeys()
             win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
-            self.pressKeys()
         else:
             win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
 
@@ -58,19 +60,26 @@ class JoyStickHandler(baseHandler):
 
         xVal = self.coordinatePipeline(xVal)
         yVal = self.coordinatePipeline(yVal)
-        if yVal != 0 or xVal != 0:
 
-            if self.isPressing == False:
+        print(self.joyState)
+
+        if self.joyState == JOYSTICK_STATE.NON_PREMUTO:
+            if yVal != 0 or xVal != 0:
+                self.joyState = JOYSTICK_STATE.PRESSING
                 self.pressKeys()
-            
-
-            self.handleMouseMovement(xVal, yVal, False)
-
-        elif self.isPressing:
-            self.releaseKeys()
-
-        currentTime = datetime.datetime.now()
-        if self.timeToRelease != None and self.timeToRelease > currentTime:
-            self.mouse.release(Button.middle)
-            self.timeToRelease = None
-
+                self.handleMouseMovement(xVal, yVal)
+        elif self.joyState == JOYSTICK_STATE.PRESSING:
+            if yVal == 0 and xVal == 0:
+                self.timeToRelease = datetime.datetime.now() + datetime.timedelta(seconds=0.2)
+                self.joyState = JOYSTICK_STATE.RELEASING
+            self.handleMouseMovement(xVal, yVal)
+        elif self.joyState == JOYSTICK_STATE.RELEASING:
+            self.handleMouseMovement(xVal, yVal)
+            if yVal != 0 or xVal != 0:
+                self.joyState = JOYSTICK_STATE.PRESSING
+            else:
+                currentTime = datetime.datetime.now()
+                if self.timeToRelease != None and self.timeToRelease < currentTime:
+                    self.releaseKeys()
+                    self.timeToRelease = None
+                    self.joyState = JOYSTICK_STATE.NON_PREMUTO
