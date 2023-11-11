@@ -7,7 +7,7 @@ from handlers.joystickHandler import JoyStickHandler
 from handlers.zoomHandler import ZoomHandler
 
 settings ={
-        "ARDUINO_PORT": "COM5"
+        "ARDUINO_PORT": "COM3"
         } 
 
 keyboard = Controller()
@@ -15,7 +15,7 @@ mouse = MouseController()
 
 
 handlersList = [
-    ZoomHandler(),
+    # ZoomHandler(),
     JoyStickHandler()
 ]
 
@@ -24,6 +24,7 @@ for genericHandler in handlersList:
     genericHandler.setKeyboard(keyboard)
 
 toInit = True
+modular = 0
 
 while True:
     try:
@@ -31,12 +32,15 @@ while True:
             ser = serial.Serial(settings["ARDUINO_PORT"], 9600)
             ser.readline()
             toInit = False
-
-        line = ser.readline().decode('utf-8')
-        dic = json.loads(line)
         
-        for genericHandler in handlersList:
-            genericHandler.handle(dic)
+        line = ser.readline().decode('utf-8')
+
+        modular += 1
+        if modular > 10:
+            modular = 0
+            dic = json.loads(line)            
+            for genericHandler in handlersList:
+                genericHandler.handle(dic)
     except KeyboardInterrupt:
         ser.close()
         exit()

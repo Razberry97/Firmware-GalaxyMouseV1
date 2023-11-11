@@ -20,6 +20,9 @@ class JoyStickHandler(baseHandler):
         self.joyState = JOYSTICK_STATE.NON_PREMUTO
         self.timeToRelease = None
         self.radius = 300
+        self.sensitivity = 0.5
+        self.centerX = 1000
+        self.centerY = 500
 
     def deadzoning(self, val):
         if abs(val) < 10:
@@ -45,19 +48,18 @@ class JoyStickHandler(baseHandler):
         return math.sqrt((x2-x1) ** 2 + (y2-y1) ** 2)
 
     def handleMouseMovement(self, xVal, yVal):
-        centerX = 1000
-        centerY = 500
         xmPos, ymPos = win32api.GetCursorPos()
         win32api.ShowCursor(False)
 
-        if (self.distance(xmPos, ymPos, centerX, centerY) > self.radius):
-            xmPos = centerX
-            ymPos = centerY
+        if (self.distance(xmPos, ymPos, self.centerX, self.centerY) > self.radius):
+            xmPos = self.centerX
+            ymPos = self.centerY
             self.releaseKeys()
-            win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
+            win32api.SetCursorPos((self.centerX, self.centerY))
+            self.mouse.move(int(xVal), int(yVal))
             self.pressKeys()
         else:
-            win32api.SetCursorPos((xmPos - int(xVal), ymPos + int(yVal)))
+            self.mouse.move(int(xVal), int(yVal))
 
     def handle(self, dic):
         xVal = dic['XValue']
@@ -78,7 +80,7 @@ class JoyStickHandler(baseHandler):
             if yVal == 0 and xVal == 0:
                 self.timeToRelease = (
                     datetime.datetime.now() +
-                    datetime.timedelta(seconds=0.2)
+                    datetime.timedelta(seconds=0.1)
                 )
                 self.joyState = JOYSTICK_STATE.RELEASING
             self.handleMouseMovement(xVal, yVal)
@@ -96,3 +98,4 @@ class JoyStickHandler(baseHandler):
                     self.timeToRelease = None
                     self.joyState = JOYSTICK_STATE.NON_PREMUTO
                     windll.user32.BlockInput(False)
+                    win32api.SetCursorPos((self.centerX, self.centerY))
